@@ -206,3 +206,22 @@ p::before {
   background: var(--red);
   vertical-align: middle;
 }
+
+/* 여덟 번 누르면 뜨는 사진: 화면 위에 어둡게 덮고 가운데에 사진 */
+.photo {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(17, 17, 17, 0.75);
+  cursor: pointer;
+}
+
+.photo img {
+  max-width: 100%;
+  max-height: 80vh;
+  border: 2px solid var(--teal);
+  background: var(--white);
+}
