@@ -1,150 +1,141 @@
-/* 색: 핫핑크·시안·터쿼이즈·바이올렛·형광 옐로, 대비는 네이비와 검정 */
+/* 색: 청록과 흰색이 중심, 검정은 글자, 빨강은 아주 조금만 */
 :root {
-  --pink: #ff3ea5;
-  --cyan: #00e5ff;
-  --turquoise: #19d3b0;
-  --violet: #7c3aed;
-  --yellow: #e6ff3c;
-  --navy: #16163f;
-  --black: #111111;
+  --teal: #39c5bb;
+  --teal-dark: #137a7f;
   --white: #ffffff;
+  --paper: #f4f6f6;
+  --black: #111111;
+  --gray: #5c6466;
+  --line: #d3dadb;
+  --red: #e60012;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 화면 전체: 형광 옐로 바탕에 만화 인쇄물 같은 하프톤 점무늬 */
+/* 화면 전체: 밝은 회색 바탕에 가는 격자선 */
 body {
   margin: 0 auto;
   max-width: 560px;
   min-height: 100vh;
-  padding: 56px 20px 48px;
+  padding: 40px 20px 32px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
-  gap: 16px 10px;
-  background-color: var(--yellow);
-  background-image: radial-gradient(rgba(22, 22, 63, 0.22) 1.4px, transparent 1.8px);
-  background-size: 12px 12px;
+  gap: 12px 8px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--black);
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* 오른쪽 위 장식: 굵은 검정 테두리의 비정형 별 + 시안 원 */
+/* 오른쪽 위 장식: 겹친 원 (기하학 무늬, 글자 뒤에 깔림) */
 body::before {
   content: "";
   position: absolute;
-  top: 8px;
-  right: 16px;
-  width: 112px;
-  height: 112px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='80' cy='38' r='30' fill='%2300e5ff' stroke='%23111111' stroke-width='4'/%3E%3Cpath d='M60 4 L69 38 L93 27 L82 51 L118 60 L82 69 L90 90 L69 82 L60 114 L51 82 L25 95 L38 69 L3 60 L38 51 L29 29 L51 38Z' fill='%23ff3ea5' stroke='%23111111' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-size: 112px 112px;
-  transform: rotate(12deg);
+  top: 20px;
+  right: 20px;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 18px var(--paper),
+    0 0 0 19px var(--teal);
+  opacity: 0.6;
   pointer-events: none;
   z-index: -1;
 }
 
-/* 아래쪽 장식: 겹쳐진 하트, 바이올렛 원, 물결무늬 */
+/* 왼쪽 위 장식: 빨간 사선 한 줄 */
 body::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 16px;
-  height: 150px;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Ccircle cx='52' cy='92' r='40' fill='%237c3aed' stroke='%23111111' stroke-width='4'/%3E%3Ccircle cx='52' cy='92' r='22' fill='none' stroke='%23e6ff3c' stroke-width='4' stroke-dasharray='6 6'/%3E%3Cpath d='M98 128 C62 104 64 72 86 72 C94 72 98 80 98 84 C98 80 102 72 110 72 C132 72 134 104 98 128Z' fill='%23ff3ea5' stroke='%23111111' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='24' viewBox='0 0 60 24'%3E%3Cpath d='M0 12 Q15 0 30 12 T60 12' fill='none' stroke='%2316163f' stroke-width='4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, repeat-x;
-  background-position: left 8px bottom, left 0 bottom 44px;
-  background-size: 150px 150px, 60px 24px;
+  top: 22px;
+  left: 20px;
+  width: 64px;
+  height: 3px;
+  background: var(--red);
+  transform: skewX(-30deg);
   pointer-events: none;
-  z-index: -1;
 }
 
-/* 제목: 아주 크고 굵게, 핑크 색 블록 스티커처럼 살짝 기울임 */
+/* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
 h1 {
   grid-column: 1 / -1;
-  justify-self: start;
-  margin: 12px 0 14px;
-  padding: 6px 16px 10px;
-  border: 4px solid var(--black);
-  background: var(--pink);
-  box-shadow: 6px 6px 0 var(--black);
-  color: var(--black);
-  font-size: clamp(2.8rem, 15vw, 4.6rem);
+  margin: 8px 0 12px;
+  padding-bottom: 28px;
+  font-size: clamp(2.4rem, 11vw, 3.6rem);
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  transform: rotate(-3deg);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10 T75 10 T90 10 T105 10 T120 10' fill='none' stroke='%2339c5bb' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 120px 20px;
 }
 
-/* 입력칸: 굵은 검정 테두리와 단단한 그림자 */
+/* 입력칸 */
 input {
   min-width: 0;
-  height: 54px;
+  height: 48px;
   padding: 0 14px;
-  border: 3px solid var(--black);
-  border-radius: 0;
+  border: 1px solid var(--black);
+  border-radius: 2px;
   background: var(--white);
-  box-shadow: 4px 4px 0 var(--black);
   color: var(--black);
   font: inherit;
 }
 
 input::placeholder {
-  color: #555555;
+  color: var(--gray);
 }
 
 input:focus {
-  outline: 3px solid var(--violet);
-  outline-offset: 3px;
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
 }
 
-/* 추가 버튼: 시안 단색 바탕, 손으로 그린 듯 불규칙한 외곽선 */
+/* 추가 버튼: 청록 바탕, 검정 테두리 */
 button {
-  height: 54px;
+  height: 48px;
   padding: 0 22px;
-  border: 3px solid var(--black);
-  border-radius: 14px 4px 18px 6px / 6px 16px 4px 14px;
-  background: var(--cyan);
-  box-shadow: 4px 4px 0 var(--black);
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  background: var(--teal);
   color: var(--black);
   font: inherit;
-  font-size: 1.1rem;
-  font-weight: 900;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   cursor: pointer;
 }
 
 button:hover {
-  background: var(--turquoise);
-}
-
-button:active {
-  box-shadow: 1px 1px 0 var(--black);
-  transform: translate(3px, 3px);
+  background: var(--teal-dark);
+  color: var(--white);
 }
 
 button:focus-visible {
-  outline: 3px solid var(--violet);
-  outline-offset: 3px;
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
 }
 
-/* 할 일 목록: 흰 카드로 내용 영역을 또렷하게, 네이비 그림자 */
+/* 할 일 목록: 앨범 트랙 목록처럼 번호를 붙임 */
 ul {
   grid-column: 1 / -1;
-  margin: 18px 0 0;
+  margin: 16px 0 0;
   padding: 0;
   list-style: none;
   counter-reset: track;
-  border: 3px solid var(--black);
+  border-top: 2px solid var(--black);
   background: var(--white);
-  box-shadow: 8px 8px 0 var(--navy);
 }
 
 li {
@@ -152,41 +143,35 @@ li {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px;
-  border-bottom: 3px solid var(--black);
-  font-weight: 600;
-}
-
-li:last-child {
-  border-bottom: none;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--line);
+  border-left: 4px solid var(--teal);
 }
 
 li::before {
-  content: counter(track);
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 30px;
-  height: 30px;
-  border: 3px solid var(--black);
-  border-radius: 50%;
-  background: var(--turquoise);
-  color: var(--black);
-  font-size: 0.9rem;
-  font-weight: 900;
+  content: counter(track, decimal-leading-zero);
+  color: var(--teal-dark);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-/* 남은 개수: 바이올렛 라벨을 대각선으로 붙인 스티커 */
+/* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
 p {
   grid-column: 1 / -1;
   justify-self: end;
-  margin: 14px 6px 0;
-  padding: 6px 14px;
-  border: 3px solid var(--black);
-  background: var(--violet);
-  box-shadow: 4px 4px 0 var(--black);
-  color: var(--white);
-  font-size: 0.95rem;
-  font-weight: 900;
-  transform: rotate(6deg);
+  margin: 4px 0 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+p::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  background: var(--red);
+  vertical-align: middle;
 }
