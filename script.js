@@ -1,29 +1,17 @@
 // 명세 ③: 추가 → 목록 맨 아래에 · 체크 → 줄이 그어지고 남은 개수 −1 · 삭제 → 목록에서 사라짐
 // 완료 조건: 빈 칸은 추가 안 됨 · 체크하면 남은 개수가 바로 바뀜 · 새로고침해도 남음 · 휴대폰에서 쓸 수 있음
 
-// 할 일 목록은 Supabase의 todos 표(id, text, done, created_at)에 저장한다. 공개 키만 쓴다.
+// 할 일 목록은 Supabase의 todos 표에 모두 저장한다 (어느 기기에서 열어도 같은 목록). 공개 키만 쓴다.
+// 표의 칸: id, text, done, created_at, category(분류), due(마감일), important(별표)
 const SUPABASE_URL = 'https://ojffgrqjofdyusjrvrof.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_73ew9yQJohMTGWpF6dylmg_9cvn9fpI';
 const TABLE = `${SUPABASE_URL}/rest/v1/todos`;
 
 let items = [];
 
-// 표에 칸이 없는 분류·마감일·별표는 이 브라우저 안에 할 일 번호(id)별로 저장
-const EXTRA_KEY = 'todo-extras';
-let extras = JSON.parse(localStorage.getItem(EXTRA_KEY) || '{}');
-
 // 완료한 할 일을 숨길지 (이것도 브라우저 안에 저장)
 const HIDE_KEY = 'todo-hide-done';
 let hideDone = localStorage.getItem(HIDE_KEY) === 'true';
-
-function saveExtras() {
-  localStorage.setItem(EXTRA_KEY, JSON.stringify(extras));
-}
-
-function rememberExtras(item) {
-  extras[item.id] = { category: item.category, due: item.due, important: item.important };
-  saveExtras();
-}
 
 // Supabase 표에 요청 보내기 (다른 사이트 라이브러리 없이 브라우저 기본 fetch로)
 async function ask(method, query, body) {
@@ -50,8 +38,7 @@ function showError(error) {
 // 처음 열 때: 표에서 목록 불러오기 (먼저 만든 것이 위로)
 async function load() {
   try {
-    const rows = await ask('GET', '?select=id,text,done,created_at&order=created_at.asc,id.asc');
-    items = rows.map((row) => Object.assign({}, extras[row.id], row));
+    items = await ask('GET', '?select=id,text,done,created_at,category,due,important&order=created_at.asc,id.asc');
   } catch (error) {
     showError(error);
   }
@@ -61,10 +48,8 @@ async function load() {
 // 추가: 표에 한 줄 넣고, 돌려받은 줄(id 포함)을 목록 맨 아래에
 async function addItem(text, category, due) {
   try {
-    const [row] = await ask('POST', '', { text: text });
-    const item = Object.assign({ category: category, due: due, important: false }, row);
-    rememberExtras(item);
-    items.push(item);
+    const [row] = await ask('POST', '', { text: text, category: category, due: due || null, important: false });
+    items.push(row);
   } catch (error) {
     showError(error);
   }
@@ -119,9 +104,13 @@ function render() {
     star.className = item.important ? 'star on' : 'star';
     star.textContent = item.important ? '★' : '☆';
     star.setAttribute('aria-label', item.important ? '중요 표시 풀기' : '중요 표시');
-    star.addEventListener('click', () => {
-      item.important = !item.important;
-      rememberExtras(item);
+    star.addEventListener('click', async () => {
+      try {
+        await ask('PATCH', `?id=eq.${item.id}`, { important: !item.important });
+        item.important = !item.important;
+      } catch (error) {
+        showError(error);
+      }
       render();
     });
 
@@ -154,8 +143,6 @@ function render() {
       try {
         await ask('DELETE', `?id=eq.${item.id}`);
         items.splice(items.indexOf(item), 1);
-        delete extras[item.id];
-        saveExtras();
       } catch (error) {
         showError(error);
       }
