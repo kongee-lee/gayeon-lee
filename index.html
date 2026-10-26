@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>가게 할 일</title>
+  <title>나 이거 해야해</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>가게 할 일</h1>
+  <h1>나 이거 해야해</h1>
 
-  <input type="text" placeholder="할 것 적기">
-  <button type="button">추가</button>
+  <input type="text" id="item" placeholder="너 이거">
+  <button type="button" id="add">추가</button>
 
-  <ul>
-    <li>바닥 쓸기</li>
-    <li>지뱀 밥 주기</li>
+  <ul id="list">
+    <li><input type="checkbox"> 지뱀 밥주기 <button type="button">삭제</button></li>
+    <li><input type="checkbox"> 물 마시기 <button type="button">삭제</button></li>
+    <li><input type="checkbox"> 스트레칭하기 <button type="button">삭제</button></li>
   </ul>
 
-  <p>남은 개수: 2</p>
+  <p>남은 개수: <span id="count">3</span></p>
 </body>
 </html>
