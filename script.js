@@ -29,7 +29,12 @@ function today() {
 function render() {
   const list = document.querySelector('#list');
   list.innerHTML = '';
-  items.forEach((item, i) => {
+  // 중요 표시(★)한 할 일을 맨 위로. 나머지는 추가한 순서 그대로
+  const order = items.map((item, i) => i);
+  order.sort((a, b) => (items[b].important ? 1 : 0) - (items[a].important ? 1 : 0) || a - b);
+
+  order.forEach((i) => {
+    const item = items[i];
     if (hideDone && item.done) return;  // 숨기는 중이면 완료한 할 일은 건너뛴다
 
     const li = document.createElement('li');
