@@ -84,13 +84,12 @@ body::after {
   pointer-events: none;
 }
 
-/* 제목 위 사진: 원래 너비의 1/8 크기로, 왼쪽 위 빨간 선 바로 아래에 */
+/* 제목 위 사진: 왼쪽 위 빨간 선 바로 아래에. 높이는 1/8 크기일 때 그대로, 가로만 화면 폭만큼 쭉 늘림 */
 .cover {
   grid-column: 1 / -1;
-  justify-self: start;
   display: block;
-  width: 12.5%;
-  height: auto;
+  width: 100%;
+  aspect-ratio: 6400 / 263;
   border-radius: 3px;
   position: relative;
   z-index: 1;
