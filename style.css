@@ -1,101 +1,99 @@
-/* 색: 청록과 흰색이 중심, 검정은 글자, 빨강은 아주 조금만 */
+/* 색: 크림·아이보리 바탕에 살구, 코랄 핑크, 깊은 청록을 포인트로 */
 :root {
-  --teal: #39c5bb;
-  --teal-dark: #137a7f;
-  --white: #ffffff;
-  --paper: #f4f6f6;
-  --black: #111111;
-  --gray: #5c6466;
-  --line: #d3dadb;
-  --red: #e60012;
+  --cream: #fbf4e8;
+  --ivory: #fffaf2;
+  --apricot: #f2a66a;
+  --coral: #ec8e86;
+  --teal: #1f5f63;
+  --ink: #2b2522;
+  --muted: #7a6c63;
+  --line: #e6d8c6;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 화면 전체: 밝은 회색 바탕에 가는 격자선 */
+/* 화면 전체: 크림색 바탕에 햇빛이 번진 듯한 은은한 색 */
 body {
   margin: 0 auto;
   max-width: 560px;
   min-height: 100vh;
-  padding: 40px 20px 32px;
+  padding: 56px 24px 40px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
-  gap: 12px 8px;
-  background-color: var(--paper);
+  gap: 14px 10px;
+  background-color: var(--cream);
   background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 24px 24px;
-  color: var(--black);
+    radial-gradient(circle at 85% 8%, rgba(242, 166, 106, 0.35), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(236, 142, 134, 0.22), transparent 50%);
+  background-attachment: fixed;
+  color: var(--ink);
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* 오른쪽 위 장식: 겹친 원 (기하학 무늬, 글자 뒤에 깔림) */
+/* 오른쪽 위 장식: 반투명한 색면 (필름 사진의 빛 번짐 느낌) */
 body::before {
   content: "";
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 28px;
+  right: 24px;
   width: 120px;
-  height: 120px;
-  border: 2px solid var(--teal);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 18px var(--paper),
-    0 0 0 19px var(--teal);
-  opacity: 0.6;
+  height: 150px;
+  border-radius: 6px;
+  background: linear-gradient(160deg, rgba(242, 166, 106, 0.45), rgba(236, 142, 134, 0.25) 60%, rgba(31, 95, 99, 0.12));
   pointer-events: none;
   z-index: -1;
 }
 
-/* 왼쪽 위 장식: 빨간 사선 한 줄 */
+/* 색면 위의 가는 곡선: 헤드폰과 음파를 단순하게 그린 선 */
 body::after {
   content: "";
   position: absolute;
-  top: 22px;
-  left: 20px;
-  width: 64px;
-  height: 3px;
-  background: var(--red);
-  transform: skewX(-30deg);
+  top: 44px;
+  right: 24px;
+  width: 120px;
+  height: 120px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' fill='none' stroke='%231f5f63' stroke-width='1.2'%3E%3Cpath d='M20 70 A40 40 0 0 1 100 70'/%3E%3Cpath d='M30 70 A30 30 0 0 1 90 70' opacity='0.5'/%3E%3Cpath d='M10 98 Q25 84 40 98 T70 98 T100 98 T130 98' opacity='0.7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
   pointer-events: none;
+  z-index: -1;
 }
 
-/* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
+/* 제목: 크고 세련된 이탤릭, 아래에 얇은 구분선 */
 h1 {
   grid-column: 1 / -1;
-  margin: 8px 0 12px;
-  padding-bottom: 28px;
-  font-size: clamp(2.4rem, 11vw, 3.6rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10 T75 10 T90 10 T105 10 T120 10' fill='none' stroke='%2339c5bb' stroke-width='2'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: left bottom;
-  background-size: 120px 20px;
+  margin: 24px 0 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--teal);
+  font-family: Georgia, "Times New Roman", "AppleMyungjo", "Batang", serif;
+  font-size: clamp(2.4rem, 11vw, 3.4rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 /* 입력칸 */
 input {
   min-width: 0;
   height: 48px;
-  padding: 0 14px;
-  border: 1px solid var(--black);
-  border-radius: 2px;
-  background: var(--white);
-  color: var(--black);
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--ivory);
+  color: var(--ink);
   font: inherit;
 }
 
 input::placeholder {
-  color: var(--gray);
+  color: var(--muted);
+  font-style: italic;
 }
 
 input:focus {
@@ -103,67 +101,69 @@ input:focus {
   outline-offset: 2px;
 }
 
-/* 추가 버튼: 청록 바탕, 검정 테두리 */
+/* 추가 버튼: 살구빛에서 코랄로 번지는 색 */
 button {
   height: 48px;
-  padding: 0 22px;
-  border: 1px solid var(--black);
-  border-radius: 2px;
-  background: var(--teal);
-  color: var(--black);
+  padding: 0 24px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--apricot), var(--coral));
+  color: var(--ink);
   font: inherit;
   font-weight: 700;
-  letter-spacing: 0.08em;
   cursor: pointer;
 }
 
 button:hover {
-  background: var(--teal-dark);
-  color: var(--white);
+  background: var(--teal);
+  color: var(--ivory);
 }
 
 button:focus-visible {
-  outline: 2px solid var(--black);
+  outline: 2px solid var(--teal);
   outline-offset: 2px;
 }
 
-/* 할 일 목록: 앨범 트랙 목록처럼 번호를 붙임 */
+/* 할 일 목록: 앨범 뒷면의 곡 목록처럼 번호를 붙임 */
 ul {
   grid-column: 1 / -1;
-  margin: 16px 0 0;
-  padding: 0;
+  margin: 20px 0 0;
+  padding: 4px 18px;
   list-style: none;
   counter-reset: track;
-  border-top: 2px solid var(--black);
-  background: var(--white);
+  border-radius: 8px;
+  background: rgba(255, 250, 242, 0.75);
 }
 
 li {
   counter-increment: track;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 12px;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
-  border-left: 4px solid var(--teal);
+}
+
+li:last-child {
+  border-bottom: none;
 }
 
 li::before {
   content: counter(track, decimal-leading-zero);
-  color: var(--teal-dark);
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
-  font-weight: 700;
+  color: #c26b38;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
-/* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
+/* 남은 개수: 오른쪽에 작게, 앞에 코랄 점 */
 p {
   grid-column: 1 / -1;
   justify-self: end;
-  margin: 4px 0 0;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
 p::before {
@@ -172,6 +172,7 @@ p::before {
   width: 8px;
   height: 8px;
   margin-right: 8px;
-  background: var(--red);
+  border-radius: 50%;
+  background: var(--coral);
   vertical-align: middle;
 }
