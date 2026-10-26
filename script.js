@@ -29,9 +29,16 @@ function today() {
 function render() {
   const list = document.querySelector('#list');
   list.innerHTML = '';
-  // 중요 표시(★)한 할 일을 맨 위로. 나머지는 추가한 순서 그대로
+  // 정렬: ① 중요 표시(★)한 할 일이 맨 위 ② 마감일이 가까운 순서 ③ 마감일 없는 것은 아래에, 추가한 순서대로
   const order = items.map((item, i) => i);
-  order.sort((a, b) => (items[b].important ? 1 : 0) - (items[a].important ? 1 : 0) || a - b);
+  order.sort((a, b) => {
+    const A = items[a];
+    const B = items[b];
+    if (!!A.important !== !!B.important) return A.important ? -1 : 1;
+    if (A.due && B.due && A.due !== B.due) return A.due < B.due ? -1 : 1;
+    if (!!A.due !== !!B.due) return A.due ? -1 : 1;
+    return a - b;
+  });
 
   order.forEach((i) => {
     const item = items[i];
