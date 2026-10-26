@@ -44,6 +44,18 @@ function render() {
       render();
     });
 
+    // 별표 버튼: 누르면 중요 표시(★), 다시 누르면 풀기(☆)
+    const star = document.createElement('button');
+    star.type = 'button';
+    star.className = item.important ? 'star on' : 'star';
+    star.textContent = item.important ? '★' : '☆';
+    star.setAttribute('aria-label', item.important ? '중요 표시 풀기' : '중요 표시');
+    star.addEventListener('click', () => {
+      items[i].important = !items[i].important;
+      save();
+      render();
+    });
+
     const label = document.createElement('span');
     label.textContent = item.text;
 
@@ -84,7 +96,7 @@ function render() {
     body.className = 'body';
     body.append(label, meta);
 
-    li.append(check, body, del);
+    li.append(check, star, body, del);
     list.append(li);
   });
   // 남은 개수 = 체크하지 않은 것
