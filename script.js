@@ -1,20 +1,73 @@
 // 명세 ③: 추가 → 목록 맨 아래에 · 체크 → 줄이 그어지고 남은 개수 −1 · 삭제 → 목록에서 사라짐
 // 완료 조건: 빈 칸은 추가 안 됨 · 체크하면 남은 개수가 바로 바뀜 · 새로고침해도 남음 · 휴대폰에서 쓸 수 있음
 
-const KEY = 'todo-items';  // 이 브라우저 안(로컬 스토리지)에 저장할 이름
-let items = JSON.parse(localStorage.getItem(KEY) || '[]');
+// 할 일 목록은 Supabase의 todos 표(id, text, done, created_at)에 저장한다. 공개 키만 쓴다.
+const SUPABASE_URL = 'https://ojffgrqjofdyusjrvrof.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_73ew9yQJohMTGWpF6dylmg_9cvn9fpI';
+const TABLE = `${SUPABASE_URL}/rest/v1/todos`;
+
+let items = [];
+
+// 표에 칸이 없는 분류·마감일·별표는 이 브라우저 안에 할 일 번호(id)별로 저장
+const EXTRA_KEY = 'todo-extras';
+let extras = JSON.parse(localStorage.getItem(EXTRA_KEY) || '{}');
 
 // 완료한 할 일을 숨길지 (이것도 브라우저 안에 저장)
 const HIDE_KEY = 'todo-hide-done';
 let hideDone = localStorage.getItem(HIDE_KEY) === 'true';
 
-function save() {
-  localStorage.setItem(KEY, JSON.stringify(items));
+function saveExtras() {
+  localStorage.setItem(EXTRA_KEY, JSON.stringify(extras));
 }
 
-function addItem(text, category, due) {
-  items.push({ text: text, done: false, category: category, due: due });  // 목록 맨 아래에
-  save();
+function rememberExtras(item) {
+  extras[item.id] = { category: item.category, due: item.due, important: item.important };
+  saveExtras();
+}
+
+// Supabase 표에 요청 보내기 (다른 사이트 라이브러리 없이 브라우저 기본 fetch로)
+async function ask(method, query, body) {
+  const response = await fetch(TABLE + query, {
+    method: method,
+    headers: {
+      apikey: SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!response.ok) {
+    throw new Error(`${response.status} ${await response.text()}`);
+  }
+  return response.json();
+}
+
+function showError(error) {
+  console.error(error);
+  alert('Supabase에 저장하지 못했어요. 잠시 뒤 다시 해 주세요.');
+}
+
+// 처음 열 때: 표에서 목록 불러오기 (먼저 만든 것이 위로)
+async function load() {
+  try {
+    const rows = await ask('GET', '?select=id,text,done,created_at&order=created_at.asc,id.asc');
+    items = rows.map((row) => Object.assign({}, extras[row.id], row));
+  } catch (error) {
+    showError(error);
+  }
+  render();
+}
+
+// 추가: 표에 한 줄 넣고, 돌려받은 줄(id 포함)을 목록 맨 아래에
+async function addItem(text, category, due) {
+  try {
+    const [row] = await ask('POST', '', { text: text });
+    const item = Object.assign({ category: category, due: due, important: false }, row);
+    rememberExtras(item);
+    items.push(item);
+  } catch (error) {
+    showError(error);
+  }
   render();
 }
 
@@ -50,9 +103,13 @@ function render() {
     const check = document.createElement('input');
     check.type = 'checkbox';
     check.checked = item.done;
-    check.addEventListener('change', () => {
-      items[i].done = check.checked;
-      save();
+    check.addEventListener('change', async () => {
+      try {
+        await ask('PATCH', `?id=eq.${item.id}`, { done: check.checked });
+        item.done = check.checked;
+      } catch (error) {
+        showError(error);
+      }
       render();
     });
 
@@ -63,8 +120,8 @@ function render() {
     star.textContent = item.important ? '★' : '☆';
     star.setAttribute('aria-label', item.important ? '중요 표시 풀기' : '중요 표시');
     star.addEventListener('click', () => {
-      items[i].important = !items[i].important;
-      save();
+      item.important = !item.important;
+      rememberExtras(item);
       render();
     });
 
@@ -93,9 +150,15 @@ function render() {
     const del = document.createElement('button');
     del.type = 'button';
     del.textContent = '삭제';
-    del.addEventListener('click', () => {
-      items.splice(i, 1);
-      save();
+    del.addEventListener('click', async () => {
+      try {
+        await ask('DELETE', `?id=eq.${item.id}`);
+        items.splice(items.indexOf(item), 1);
+        delete extras[item.id];
+        saveExtras();
+      } catch (error) {
+        showError(error);
+      }
       render();
     });
 
@@ -195,3 +258,4 @@ function showPhoto() {
 }
 
 render();
+load();
