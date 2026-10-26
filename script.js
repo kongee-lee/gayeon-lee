@@ -8,10 +8,18 @@ function save() {
   localStorage.setItem(KEY, JSON.stringify(items));
 }
 
-function addItem(text, category) {
-  items.push({ text: text, done: false, category: category });  // 목록 맨 아래에
+function addItem(text, category, due) {
+  items.push({ text: text, done: false, category: category, due: due });  // 목록 맨 아래에
   save();
   render();
+}
+
+// 오늘 날짜를 마감일과 같은 모양(2026-10-26)으로
+function today() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${now.getFullYear()}-${month}-${day}`;
 }
 
 function render() {
@@ -38,6 +46,20 @@ function render() {
     tag.className = 'tag';
     tag.textContent = item.category || '기타';
 
+    // 마감일 표시: "10/30까지", 지났는데 체크 안 했으면 빨갛게 "10/30 지남"
+    const due = document.createElement('span');
+    due.className = 'due';
+    if (item.due) {
+      const [, month, day] = item.due.split('-');
+      const date = `${Number(month)}/${Number(day)}`;
+      if (!item.done && item.due < today()) {
+        due.classList.add('late');
+        due.textContent = `${date} 지남`;
+      } else {
+        due.textContent = `${date}까지`;
+      }
+    }
+
     const del = document.createElement('button');
     del.type = 'button';
     del.textContent = '삭제';
@@ -47,7 +69,16 @@ function render() {
       render();
     });
 
-    li.append(check, label, tag, del);
+    // 할 일 글 아래 줄에 분류와 마감일을 함께 놓기
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.append(tag, due);
+
+    const body = document.createElement('div');
+    body.className = 'body';
+    body.append(label, meta);
+
+    li.append(check, body, del);
     list.append(li);
   });
   // 남은 개수 = 체크하지 않은 것
@@ -59,8 +90,10 @@ button.addEventListener('click', () => {
   const input = document.querySelector('#item');
   const text = input.value.trim();
   if (text === '') return;   // 빈 칸이면 멈춘다
-  addItem(text, document.querySelector('#category').value);  // 고른 분류와 함께 목록에 추가한다
+  const dueInput = document.querySelector('#due');
+  addItem(text, document.querySelector('#category').value, dueInput.value);  // 고른 분류·마감일과 함께 목록에 추가한다
   input.value = '';
+  dueInput.value = '';
   input.focus();
 });
 
