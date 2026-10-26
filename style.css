@@ -84,12 +84,14 @@ body::after {
   pointer-events: none;
 }
 
-/* 제목 옆 사진: 원래 비율 그대로, 높이는 제목 글자에 맞춤 */
+/* 제목 옆 사진: 높이는 제목 글자에 맞추고, 가로는 원래보다 1.25배 길게
+   (아주 좁은 화면에서는 한 줄에 들어가도록 조금 줄어듦) */
 .cover {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
   display: block;
-  width: auto;
   height: 0.9em;
+  aspect-ratio: 1000 / 263;
   position: relative;
   z-index: 1;
 }
@@ -100,6 +102,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 12px;
+  white-space: nowrap;
   margin: 8px 0 12px;
   padding-bottom: 28px;
   font-size: clamp(2.4rem, 11vw, 3.6rem);
