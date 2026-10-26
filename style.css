@@ -224,4 +224,15 @@ p::before {
   max-height: 80vh;
   border: 2px solid var(--teal);
   background: var(--white);
+  animation: spin-once 0.8s ease-out;
+}
+
+/* 사진이 뜰 때 한 바퀴 돌기 */
+@keyframes spin-once {
+  from {
+    transform: rotate(0deg) scale(0.3);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
 }
