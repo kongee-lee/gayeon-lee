@@ -1,94 +1,98 @@
-/* 색: 청록과 흰색이 중심, 검정은 글자, 빨강은 아주 조금만 */
+/* 색: 아이스 블루·시안·오프화이트 바탕에 핫핑크와 검정으로 강조 */
 :root {
-  --teal: #39c5bb;
-  --teal-dark: #137a7f;
-  --white: #ffffff;
-  --paper: #f4f6f6;
+  --offwhite: #f1f0ea;
+  --ice: #d6eef6;
+  --cyan: #7fdcef;
+  --pink: #ff2e88;
   --black: #111111;
-  --gray: #5c6466;
-  --line: #d3dadb;
-  --red: #e60012;
+  --white: #ffffff;
+  --gray: #4f5a5e;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 화면 전체: 밝은 회색 바탕에 가는 격자선 */
+/* 화면 전체: 거친 종이 질감 위에 아이스 블루 색면이 비스듬히 겹침 */
 body {
   margin: 0 auto;
   max-width: 560px;
   min-height: 100vh;
-  padding: 40px 20px 32px;
+  padding: 48px 20px 40px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
   gap: 12px 8px;
-  background-color: var(--paper);
+  background-color: var(--offwhite);
   background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 24px 24px;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(115deg, transparent 0 38%, var(--ice) 38% 72%, transparent 72%),
+    linear-gradient(115deg, transparent 0 66%, rgba(127, 220, 239, 0.45) 66% 80%, transparent 80%);
   color: var(--black);
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* 오른쪽 위 장식: 겹친 원 (기하학 무늬, 글자 뒤에 깔림) */
+/* 오른쪽 위 장식: 동심원 링 (검정·시안·핫핑크) */
 body::before {
   content: "";
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 120px;
-  height: 120px;
-  border: 2px solid var(--teal);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 18px var(--paper),
-    0 0 0 19px var(--teal);
-  opacity: 0.6;
+  top: 8px;
+  right: 8px;
+  width: 88px;
+  height: 88px;
+  background-size: 88px 88px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132' viewBox='0 0 132 132' fill='none'%3E%3Ccircle cx='66' cy='66' r='62' stroke='%23111111' stroke-width='1.5'/%3E%3Ccircle cx='66' cy='66' r='48' stroke='%237fdcef' stroke-width='10'/%3E%3Ccircle cx='66' cy='66' r='34' stroke='%23111111' stroke-width='1'/%3E%3Ccircle cx='66' cy='66' r='22' stroke='%23ff2e88' stroke-width='3'/%3E%3Cpath d='M0 66 H132 M66 0 V132' stroke='%23111111' stroke-width='0.8'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: -1;
 }
 
-/* 왼쪽 위 장식: 빨간 사선 한 줄 */
+/* 아래쪽 장식: 비스듬히 지나가는 두꺼운 체인 */
 body::after {
   content: "";
   position: absolute;
-  top: 22px;
-  left: 20px;
-  width: 64px;
-  height: 3px;
-  background: var(--red);
-  transform: skewX(-30deg);
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  height: 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='180' viewBox='0 0 560 180' fill='none' stroke='%23111111' stroke-width='7'%3E%3Cg transform='rotate(-14 280 90)'%3E%3Crect x='-40' y='72' width='70' height='36' rx='18'/%3E%3Crect x='14' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='68' y='72' width='70' height='36' rx='18'/%3E%3Crect x='122' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='176' y='72' width='70' height='36' rx='18'/%3E%3Crect x='230' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='284' y='72' width='70' height='36' rx='18'/%3E%3Crect x='338' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='392' y='72' width='70' height='36' rx='18'/%3E%3Crect x='446' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='500' y='72' width='70' height='36' rx='18'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 560px 180px;
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
   pointer-events: none;
+  z-index: -1;
 }
 
-/* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
+/* 제목: 아주 크고 굵게, 살짝 기울여 대각선으로. 핑크가 어긋나게 찍힌 인쇄 느낌 */
 h1 {
   grid-column: 1 / -1;
-  margin: 8px 0 12px;
-  padding-bottom: 28px;
-  font-size: clamp(2.4rem, 11vw, 3.6rem);
+  margin: 28px 0 8px;
+  padding-bottom: 30px;
+  font-size: clamp(3rem, 16vw, 4.8rem);
   font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10 T75 10 T90 10 T105 10 T120 10' fill='none' stroke='%2339c5bb' stroke-width='2'/%3E%3C/svg%3E");
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-shadow: 4px 4px 0 var(--pink);
+  transform: rotate(-4deg);
+  transform-origin: left bottom;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='22' viewBox='0 0 96 22'%3E%3Cpath d='M0 11 L8 11 L12 3 L18 19 L24 6 L30 16 L36 9 L42 13 L48 11 L56 11 L60 1 L66 21 L72 5 L78 17 L84 8 L90 12 L96 11' fill='none' stroke='%23111111' stroke-width='1.5'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-position: left bottom;
-  background-size: 120px 20px;
+  background-size: 96px 22px;
 }
 
-/* 입력칸 */
+/* 입력칸: 직각, 얇은 검정 테두리 */
 input {
   min-width: 0;
-  height: 48px;
+  height: 50px;
   padding: 0 14px;
   border: 1px solid var(--black);
-  border-radius: 2px;
+  border-radius: 0;
   background: var(--white);
   color: var(--black);
   font: inherit;
@@ -99,42 +103,42 @@ input::placeholder {
 }
 
 input:focus {
-  outline: 2px solid var(--teal);
+  outline: 3px solid var(--pink);
   outline-offset: 2px;
 }
 
-/* 추가 버튼: 청록 바탕, 검정 테두리 */
+/* 추가 버튼: 검정 바탕에 흰 글자, 누르기 전 손을 올리면 핫핑크 */
 button {
-  height: 48px;
-  padding: 0 22px;
+  height: 50px;
+  padding: 0 24px;
   border: 1px solid var(--black);
-  border-radius: 2px;
-  background: var(--teal);
-  color: var(--black);
+  border-radius: 0;
+  background: var(--black);
+  color: var(--white);
   font: inherit;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 900;
+  letter-spacing: 0.1em;
   cursor: pointer;
 }
 
 button:hover {
-  background: var(--teal-dark);
-  color: var(--white);
+  background: var(--pink);
+  color: var(--black);
 }
 
 button:focus-visible {
-  outline: 2px solid var(--black);
+  outline: 3px solid var(--pink);
   outline-offset: 2px;
 }
 
-/* 할 일 목록: 앨범 트랙 목록처럼 번호를 붙임 */
+/* 할 일 목록: 흰 카드에 얇은 검정 구분선, 번호는 시안 칩 */
 ul {
   grid-column: 1 / -1;
-  margin: 16px 0 0;
+  margin: 18px 0 0;
   padding: 0;
   list-style: none;
   counter-reset: track;
-  border-top: 2px solid var(--black);
+  border: 1px solid var(--black);
   background: var(--white);
 }
 
@@ -143,35 +147,33 @@ li {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 12px;
-  border-bottom: 1px solid var(--line);
-  border-left: 4px solid var(--teal);
+  padding: 14px 14px;
+  border-bottom: 1px solid var(--black);
+}
+
+li:last-child {
+  border-bottom: none;
 }
 
 li::before {
   content: counter(track, decimal-leading-zero);
-  color: var(--teal-dark);
+  padding: 2px 6px;
+  background: var(--cyan);
+  color: var(--black);
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
-/* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
+/* 남은 개수: 스티커처럼 기울어진 핫핑크 라벨 */
 p {
   grid-column: 1 / -1;
   justify-self: end;
-  margin: 4px 0 0;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-}
-
-p::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 8px;
-  background: var(--red);
-  vertical-align: middle;
+  margin: 10px 4px 0;
+  padding: 6px 12px;
+  border: 1px solid var(--black);
+  background: var(--pink);
+  color: var(--black);
+  font-weight: 900;
+  transform: rotate(-5deg);
 }
