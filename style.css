@@ -84,13 +84,12 @@ body::after {
   pointer-events: none;
 }
 
-/* 제목 위 사진: 왼쪽 위 빨간 선 바로 아래에. 높이는 1/8 크기일 때 그대로, 가로만 화면 폭만큼 쭉 늘림 */
+/* 제목 옆 사진: 원래 비율 그대로, 높이는 제목 글자에 맞춤 */
 .cover {
-  grid-column: 1 / -1;
+  flex: none;
   display: block;
-  width: 100%;
-  aspect-ratio: 6400 / 263;
-  border-radius: 3px;
+  width: auto;
+  height: 0.9em;
   position: relative;
   z-index: 1;
 }
@@ -98,6 +97,9 @@ body::after {
 /* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
 h1 {
   grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin: 8px 0 12px;
   padding-bottom: 28px;
   font-size: clamp(2.4rem, 11vw, 3.6rem);
