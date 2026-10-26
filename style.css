@@ -254,6 +254,28 @@ li .due.late {
   font-weight: 700;
 }
 
+/* 목록 아래 줄: 왼쪽에 숨기기 버튼, 오른쪽에 남은 개수 */
+.footer {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.footer button {
+  height: 36px;
+  padding: 0 12px;
+  background: var(--white);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.footer button:hover {
+  background: var(--paper);
+}
+
 /* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
 p {
   grid-column: 1 / -1;
