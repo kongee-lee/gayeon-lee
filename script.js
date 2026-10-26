@@ -64,4 +64,38 @@ document.querySelector('#item').addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && !event.isComposing) button.click();
 });
 
+// 화면을 여덟 번 누르면 사진 띄우기
+// (버튼·입력칸·체크박스를 누른 것은 세지 않음. 평소에 쓰다가 갑자기 뜨지 않게)
+const photoAddress = 'photo.png';
+let clickCount = 0;
+
+document.addEventListener('click', function (event) {
+  if (event.target.closest('button, input')) {
+    return;
+  }
+  clickCount = clickCount + 1;
+  if (clickCount === 8) {
+    clickCount = 0;
+    showPhoto();
+  }
+});
+
+function showPhoto() {
+  const cover = document.createElement('div');
+  cover.className = 'photo';
+
+  const photo = document.createElement('img');
+  photo.src = photoAddress;
+  photo.alt = '사진';
+  cover.append(photo);
+
+  // 사진을 누르면 닫기 (이 누름은 여덟 번 세기에 넣지 않음)
+  cover.addEventListener('click', function (event) {
+    event.stopPropagation();
+    cover.remove();
+  });
+
+  document.body.append(cover);
+}
+
 render();
