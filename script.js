@@ -53,7 +53,7 @@ list.addEventListener('click', function (event) {
 
 // 화면을 여덟 번 누르면 사진 띄우기
 // (버튼·입력칸·체크박스를 누른 것은 세지 않음. 평소에 쓰다가 갑자기 뜨지 않게)
-const photoAddress = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj53ptg_Uf4oIPKrnw3khJ_30kT5ORipGhuyBUJcMEOA&s=10';
+const photoAddress = 'photo.png';
 let clickCount = 0;
 
 document.addEventListener('click', function (event) {
