@@ -187,6 +187,39 @@ li.done {
   text-decoration: line-through;
 }
 
+/* 분류 고르기 줄 */
+.options {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+
+.options select {
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--black);
+  font: inherit;
+}
+
+.options select:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* 할 일 옆의 분류 표시: 청록 테두리의 작은 이름표 */
+li .tag {
+  flex: none;
+  padding: 0 6px;
+  border: 1px solid var(--teal-dark);
+  color: var(--teal-dark);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
 /* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
 p {
   grid-column: 1 / -1;

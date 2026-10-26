@@ -8,8 +8,8 @@ function save() {
   localStorage.setItem(KEY, JSON.stringify(items));
 }
 
-function addItem(text) {
-  items.push({ text: text, done: false });  // 목록 맨 아래에
+function addItem(text, category) {
+  items.push({ text: text, done: false, category: category });  // 목록 맨 아래에
   save();
   render();
 }
@@ -33,6 +33,11 @@ function render() {
     const label = document.createElement('span');
     label.textContent = item.text;
 
+    // 분류 표시 (분류가 없던 예전 할 일은 '기타')
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = item.category || '기타';
+
     const del = document.createElement('button');
     del.type = 'button';
     del.textContent = '삭제';
@@ -42,7 +47,7 @@ function render() {
       render();
     });
 
-    li.append(check, label, del);
+    li.append(check, label, tag, del);
     list.append(li);
   });
   // 남은 개수 = 체크하지 않은 것
@@ -54,7 +59,7 @@ button.addEventListener('click', () => {
   const input = document.querySelector('#item');
   const text = input.value.trim();
   if (text === '') return;   // 빈 칸이면 멈춘다
-  addItem(text);             // 목록에 추가한다
+  addItem(text, document.querySelector('#category').value);  // 고른 분류와 함께 목록에 추가한다
   input.value = '';
   input.focus();
 });
