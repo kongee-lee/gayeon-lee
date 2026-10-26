@@ -84,6 +84,17 @@ body::after {
   pointer-events: none;
 }
 
+/* 제목 위 사진: 화면 폭에 맞춰 줄이고, 모서리는 둥글게 */
+.cover {
+  grid-column: 1 / -1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  position: relative;
+  z-index: 1;
+}
+
 /* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
 h1 {
   grid-column: 1 / -1;
