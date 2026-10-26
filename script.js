@@ -2,12 +2,7 @@
 // 완료 조건: 빈 칸은 추가 안 됨 · 체크하면 남은 개수가 바로 바뀜 · 새로고침해도 남음 · 휴대폰에서 쓸 수 있음
 
 const KEY = 'todo-items';  // 이 브라우저 안(로컬 스토리지)에 저장할 이름
-// 저장된 게 없으면(처음 열었을 때) 기본 목록 세 줄로 시작
-let items = JSON.parse(localStorage.getItem(KEY)) || [
-  { text: '지뱀 밥주기', done: false },
-  { text: '물 마시기', done: false },
-  { text: '스트레칭하기', done: false },
-];
+let items = JSON.parse(localStorage.getItem(KEY) || '[]');
 
 function save() {
   localStorage.setItem(KEY, JSON.stringify(items));
@@ -68,39 +63,5 @@ button.addEventListener('click', () => {
 document.querySelector('#item').addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && !event.isComposing) button.click();
 });
-
-// 화면을 여덟 번 누르면 사진 띄우기
-// (버튼·입력칸·체크박스를 누른 것은 세지 않음. 평소에 쓰다가 갑자기 뜨지 않게)
-const photoAddress = 'photo.png';
-let clickCount = 0;
-
-document.addEventListener('click', function (event) {
-  if (event.target.closest('button, input')) {
-    return;
-  }
-  clickCount = clickCount + 1;
-  if (clickCount === 8) {
-    clickCount = 0;
-    showPhoto();
-  }
-});
-
-function showPhoto() {
-  const cover = document.createElement('div');
-  cover.className = 'photo';
-
-  const photo = document.createElement('img');
-  photo.src = photoAddress;
-  photo.alt = '사진';
-  cover.append(photo);
-
-  // 사진을 누르면 닫기 (이 누름은 여덟 번 세기에 넣지 않음)
-  cover.addEventListener('click', function (event) {
-    event.stopPropagation();
-    cover.remove();
-  });
-
-  document.body.append(cover);
-}
 
 render();
