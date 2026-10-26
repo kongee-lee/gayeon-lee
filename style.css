@@ -84,13 +84,14 @@ body::after {
   pointer-events: none;
 }
 
-/* 제목 위 사진: 화면 폭에 맞춰 줄이고, 모서리는 둥글게 */
+/* 제목 위 사진: 원래 너비의 1/8 크기로, 왼쪽 위 빨간 선 바로 아래에 */
 .cover {
   grid-column: 1 / -1;
+  justify-self: start;
   display: block;
-  width: 100%;
+  width: 12.5%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 3px;
   position: relative;
   z-index: 1;
 }
