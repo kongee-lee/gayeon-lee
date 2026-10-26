@@ -10,6 +10,23 @@
   --red: #e60012;
 }
 
+/* 다크 모드: 같은 이름의 색을 어두운 바탕용으로 바꿔 끼운다 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --teal-dark: #6fd8cf;
+  --white: #182124;
+  --paper: #0e1415;
+  --black: #e6eeee;
+  --gray: #9aa7a9;
+  --line: #2a3437;
+  --red: #ff4d5e;
+}
+
+/* 다크 모드에서도 청록 추가 버튼의 글자는 어둡게 (밝은 청록 위라서) */
+:root[data-theme="dark"] #add {
+  color: #111111;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -287,9 +304,14 @@ li .due.late {
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
+}
+
+/* 남은 개수는 오른쪽 끝으로 */
+.footer p {
+  margin-left: auto;
 }
 
 .footer button {

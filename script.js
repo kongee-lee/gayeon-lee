@@ -112,6 +112,23 @@ function render() {
   document.querySelector('#toggle-done').textContent = hideDone ? `완료 보이기 (${doneCount})` : '완료 숨기기';
 }
 
+// 다크 모드 ↔ 밝은 모드 (고른 모드도 브라우저 안에 저장)
+const THEME_KEY = 'todo-theme';
+const themeButton = document.querySelector('#theme');
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeButton.textContent = theme === 'dark' ? '밝은 모드' : '다크 모드';
+}
+
+themeButton.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+});
+
+applyTheme(localStorage.getItem(THEME_KEY) || 'light');
+
 // 완료 숨기기 ↔ 완료 보이기
 document.querySelector('#toggle-done').addEventListener('click', () => {
   hideDone = !hideDone;
