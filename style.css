@@ -1,145 +1,150 @@
-/* 색: 아이스 블루·시안·오프화이트 바탕에 핫핑크와 검정으로 강조 */
+/* 색: 핫핑크·시안·터쿼이즈·바이올렛·형광 옐로, 대비는 네이비와 검정 */
 :root {
-  --offwhite: #f1f0ea;
-  --ice: #d6eef6;
-  --cyan: #7fdcef;
-  --pink: #ff2e88;
+  --pink: #ff3ea5;
+  --cyan: #00e5ff;
+  --turquoise: #19d3b0;
+  --violet: #7c3aed;
+  --yellow: #e6ff3c;
+  --navy: #16163f;
   --black: #111111;
   --white: #ffffff;
-  --gray: #4f5a5e;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 화면 전체: 거친 종이 질감 위에 아이스 블루 색면이 비스듬히 겹침 */
+/* 화면 전체: 형광 옐로 바탕에 만화 인쇄물 같은 하프톤 점무늬 */
 body {
   margin: 0 auto;
   max-width: 560px;
   min-height: 100vh;
-  padding: 48px 20px 40px;
+  padding: 56px 20px 48px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
-  gap: 12px 8px;
-  background-color: var(--offwhite);
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
-    linear-gradient(115deg, transparent 0 38%, var(--ice) 38% 72%, transparent 72%),
-    linear-gradient(115deg, transparent 0 66%, rgba(127, 220, 239, 0.45) 66% 80%, transparent 80%);
+  gap: 16px 10px;
+  background-color: var(--yellow);
+  background-image: radial-gradient(rgba(22, 22, 63, 0.22) 1.4px, transparent 1.8px);
+  background-size: 12px 12px;
   color: var(--black);
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* 오른쪽 위 장식: 동심원 링 (검정·시안·핫핑크) */
+/* 오른쪽 위 장식: 굵은 검정 테두리의 비정형 별 + 시안 원 */
 body::before {
   content: "";
   position: absolute;
   top: 8px;
-  right: 8px;
-  width: 88px;
-  height: 88px;
-  background-size: 88px 88px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132' viewBox='0 0 132 132' fill='none'%3E%3Ccircle cx='66' cy='66' r='62' stroke='%23111111' stroke-width='1.5'/%3E%3Ccircle cx='66' cy='66' r='48' stroke='%237fdcef' stroke-width='10'/%3E%3Ccircle cx='66' cy='66' r='34' stroke='%23111111' stroke-width='1'/%3E%3Ccircle cx='66' cy='66' r='22' stroke='%23ff2e88' stroke-width='3'/%3E%3Cpath d='M0 66 H132 M66 0 V132' stroke='%23111111' stroke-width='0.8'/%3E%3C/svg%3E");
+  right: 16px;
+  width: 112px;
+  height: 112px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='80' cy='38' r='30' fill='%2300e5ff' stroke='%23111111' stroke-width='4'/%3E%3Cpath d='M60 4 L69 38 L93 27 L82 51 L118 60 L82 69 L90 90 L69 82 L60 114 L51 82 L25 95 L38 69 L3 60 L38 51 L29 29 L51 38Z' fill='%23ff3ea5' stroke='%23111111' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 112px 112px;
+  transform: rotate(12deg);
   pointer-events: none;
   z-index: -1;
 }
 
-/* 아래쪽 장식: 비스듬히 지나가는 두꺼운 체인 */
+/* 아래쪽 장식: 겹쳐진 하트, 바이올렛 원, 물결무늬 */
 body::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 24px;
-  height: 180px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='180' viewBox='0 0 560 180' fill='none' stroke='%23111111' stroke-width='7'%3E%3Cg transform='rotate(-14 280 90)'%3E%3Crect x='-40' y='72' width='70' height='36' rx='18'/%3E%3Crect x='14' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='68' y='72' width='70' height='36' rx='18'/%3E%3Crect x='122' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='176' y='72' width='70' height='36' rx='18'/%3E%3Crect x='230' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='284' y='72' width='70' height='36' rx='18'/%3E%3Crect x='338' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='392' y='72' width='70' height='36' rx='18'/%3E%3Crect x='446' y='79' width='70' height='22' rx='11' stroke='%23ff2e88'/%3E%3Crect x='500' y='72' width='70' height='36' rx='18'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 560px 180px;
-  opacity: 0.85;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  bottom: 16px;
+  height: 150px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Ccircle cx='52' cy='92' r='40' fill='%237c3aed' stroke='%23111111' stroke-width='4'/%3E%3Ccircle cx='52' cy='92' r='22' fill='none' stroke='%23e6ff3c' stroke-width='4' stroke-dasharray='6 6'/%3E%3Cpath d='M98 128 C62 104 64 72 86 72 C94 72 98 80 98 84 C98 80 102 72 110 72 C132 72 134 104 98 128Z' fill='%23ff3ea5' stroke='%23111111' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='24' viewBox='0 0 60 24'%3E%3Cpath d='M0 12 Q15 0 30 12 T60 12' fill='none' stroke='%2316163f' stroke-width='4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, repeat-x;
+  background-position: left 8px bottom, left 0 bottom 44px;
+  background-size: 150px 150px, 60px 24px;
   pointer-events: none;
   z-index: -1;
 }
 
-/* 제목: 아주 크고 굵게, 살짝 기울여 대각선으로. 핑크가 어긋나게 찍힌 인쇄 느낌 */
+/* 제목: 아주 크고 굵게, 핑크 색 블록 스티커처럼 살짝 기울임 */
 h1 {
   grid-column: 1 / -1;
-  margin: 28px 0 8px;
-  padding-bottom: 30px;
-  font-size: clamp(3rem, 16vw, 4.8rem);
+  justify-self: start;
+  margin: 12px 0 14px;
+  padding: 6px 16px 10px;
+  border: 4px solid var(--black);
+  background: var(--pink);
+  box-shadow: 6px 6px 0 var(--black);
+  color: var(--black);
+  font-size: clamp(2.8rem, 15vw, 4.6rem);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.04em;
-  text-shadow: 4px 4px 0 var(--pink);
-  transform: rotate(-4deg);
-  transform-origin: left bottom;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='22' viewBox='0 0 96 22'%3E%3Cpath d='M0 11 L8 11 L12 3 L18 19 L24 6 L30 16 L36 9 L42 13 L48 11 L56 11 L60 1 L66 21 L72 5 L78 17 L84 8 L90 12 L96 11' fill='none' stroke='%23111111' stroke-width='1.5'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: left bottom;
-  background-size: 96px 22px;
+  transform: rotate(-3deg);
 }
 
-/* 입력칸: 직각, 얇은 검정 테두리 */
+/* 입력칸: 굵은 검정 테두리와 단단한 그림자 */
 input {
   min-width: 0;
-  height: 50px;
+  height: 54px;
   padding: 0 14px;
-  border: 1px solid var(--black);
+  border: 3px solid var(--black);
   border-radius: 0;
   background: var(--white);
+  box-shadow: 4px 4px 0 var(--black);
   color: var(--black);
   font: inherit;
 }
 
 input::placeholder {
-  color: var(--gray);
+  color: #555555;
 }
 
 input:focus {
-  outline: 3px solid var(--pink);
-  outline-offset: 2px;
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
 }
 
-/* 추가 버튼: 검정 바탕에 흰 글자, 누르기 전 손을 올리면 핫핑크 */
+/* 추가 버튼: 시안 단색 바탕, 손으로 그린 듯 불규칙한 외곽선 */
 button {
-  height: 50px;
-  padding: 0 24px;
-  border: 1px solid var(--black);
-  border-radius: 0;
-  background: var(--black);
-  color: var(--white);
+  height: 54px;
+  padding: 0 22px;
+  border: 3px solid var(--black);
+  border-radius: 14px 4px 18px 6px / 6px 16px 4px 14px;
+  background: var(--cyan);
+  box-shadow: 4px 4px 0 var(--black);
+  color: var(--black);
   font: inherit;
+  font-size: 1.1rem;
   font-weight: 900;
-  letter-spacing: 0.1em;
   cursor: pointer;
 }
 
 button:hover {
-  background: var(--pink);
-  color: var(--black);
+  background: var(--turquoise);
+}
+
+button:active {
+  box-shadow: 1px 1px 0 var(--black);
+  transform: translate(3px, 3px);
 }
 
 button:focus-visible {
-  outline: 3px solid var(--pink);
-  outline-offset: 2px;
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
 }
 
-/* 할 일 목록: 흰 카드에 얇은 검정 구분선, 번호는 시안 칩 */
+/* 할 일 목록: 흰 카드로 내용 영역을 또렷하게, 네이비 그림자 */
 ul {
   grid-column: 1 / -1;
   margin: 18px 0 0;
   padding: 0;
   list-style: none;
   counter-reset: track;
-  border: 1px solid var(--black);
+  border: 3px solid var(--black);
   background: var(--white);
+  box-shadow: 8px 8px 0 var(--navy);
 }
 
 li {
@@ -147,8 +152,9 @@ li {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 14px;
-  border-bottom: 1px solid var(--black);
+  padding: 14px;
+  border-bottom: 3px solid var(--black);
+  font-weight: 600;
 }
 
 li:last-child {
@@ -156,24 +162,31 @@ li:last-child {
 }
 
 li::before {
-  content: counter(track, decimal-leading-zero);
-  padding: 2px 6px;
-  background: var(--cyan);
+  content: counter(track);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--black);
+  border-radius: 50%;
+  background: var(--turquoise);
   color: var(--black);
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 900;
 }
 
-/* 남은 개수: 스티커처럼 기울어진 핫핑크 라벨 */
+/* 남은 개수: 바이올렛 라벨을 대각선으로 붙인 스티커 */
 p {
   grid-column: 1 / -1;
   justify-self: end;
-  margin: 10px 4px 0;
-  padding: 6px 12px;
-  border: 1px solid var(--black);
-  background: var(--pink);
-  color: var(--black);
+  margin: 14px 6px 0;
+  padding: 6px 14px;
+  border: 3px solid var(--black);
+  background: var(--violet);
+  box-shadow: 4px 4px 0 var(--black);
+  color: var(--white);
+  font-size: 0.95rem;
   font-weight: 900;
-  transform: rotate(-5deg);
+  transform: rotate(6deg);
 }
