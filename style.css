@@ -1,54 +1,227 @@
-/* 명세 ② 예시: 청록과 흰색 · 제목은 크게 · 휴대폰에서 누르기 쉬운 버튼 · 줄 사이 넉넉하게 */
-body {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 24px 16px;
-  font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  background: #ffffff;
-  color: #1f2937;
-  line-height: 1.6;
+/* 색: 청록과 흰색이 중심, 검정은 글자, 빨강은 아주 조금만 */
+:root {
+  --teal: #39c5bb;
+  --teal-dark: #137a7f;
+  --white: #ffffff;
+  --paper: #f4f6f6;
+  --black: #111111;
+  --gray: #5c6466;
+  --line: #d3dadb;
+  --red: #e60012;
 }
 
-h1 { font-size: 28px; color: #0f766e; }
-
-#item {
-  width: 100%;
+* {
   box-sizing: border-box;
-  padding: 12px;
-  margin-bottom: 8px;
-  font-size: 16px;
-  border: 1px solid #99c9c4;
-  border-radius: 8px;
 }
 
-button { padding: 12px 20px; border-radius: 8px; }
-
-#add {
-  width: 100%;
+/* 화면 전체: 밝은 회색 바탕에 가는 격자선 */
+body {
+  margin: 0 auto;
+  max-width: 560px;
+  min-height: 100vh;
+  padding: 40px 20px 32px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  gap: 12px 8px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--black);
+  font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   font-size: 16px;
-  color: #ffffff;
-  background: #0f766e;
-  border: none;
+  line-height: 1.5;
 }
 
-#list { list-style: none; padding: 0; }
+/* 오른쪽 위 장식: 겹친 원 (기하학 무늬, 글자 뒤에 깔림) */
+body::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 18px var(--paper),
+    0 0 0 19px var(--teal);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
+}
 
-#list li {
+/* 왼쪽 위 장식: 빨간 사선 한 줄 */
+body::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 20px;
+  width: 64px;
+  height: 3px;
+  background: var(--red);
+  transform: skewX(-30deg);
+  pointer-events: none;
+}
+
+/* 제목: 포스터처럼 크고 굵게, 아래에 음파 선 */
+h1 {
+  grid-column: 1 / -1;
+  margin: 8px 0 12px;
+  padding-bottom: 28px;
+  font-size: clamp(2.4rem, 11vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10 T75 10 T90 10 T105 10 T120 10' fill='none' stroke='%2339c5bb' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 120px 20px;
+}
+
+/* 입력칸 */
+#item {
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--black);
+  font: inherit;
+}
+
+#item::placeholder {
+  color: var(--gray);
+}
+
+#item:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* 추가 버튼: 청록 바탕, 검정 테두리 */
+button {
+  height: 48px;
+  padding: 0 22px;
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  background: var(--teal);
+  color: var(--black);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+button:hover {
+  background: #2fb3a9;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
+}
+
+/* 할 일 목록: 앨범 트랙 목록처럼 번호를 붙임 */
+ul {
+  grid-column: 1 / -1;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: track;
+  border-top: 2px solid var(--black);
+  background: var(--white);
+}
+
+li {
+  counter-increment: track;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 14px;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--line);
+  border-left: 4px solid var(--teal);
 }
 
-#list li button {
+li::before {
+  content: counter(track, decimal-leading-zero);
+  color: var(--teal-dark);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* 목록 줄의 체크박스 */
+li input[type="checkbox"] {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--teal-dark);
+  cursor: pointer;
+}
+
+/* 목록 줄의 삭제 버튼: 오른쪽 끝, 흰 바탕의 작은 버튼 */
+li button {
+  flex: none;
   margin-left: auto;
-  padding: 8px 12px;
-  color: #0f766e;
-  background: #ffffff;
-  border: 1px solid #0f766e;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--white);
+  font-size: 0.9rem;
+  letter-spacing: 0;
 }
 
-#list input[type="checkbox"] { width: 22px; height: 22px; }
+li button:hover {
+  background: var(--paper);
+}
 
-li.done { text-decoration: line-through; color: #9ca3af; }
+/* 체크한 줄: 가운데 줄을 긋고 흐리게 */
+li.done {
+  color: var(--gray);
+  text-decoration: line-through;
+}
+
+/* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
+p {
+  grid-column: 1 / -1;
+  justify-self: end;
+  margin: 4px 0 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+p::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  background: var(--red);
+  vertical-align: middle;
+}
+
+/* 여덟 번 누르면 뜨는 사진: 화면 위에 어둡게 덮고 가운데에 사진 */
+.photo {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(17, 17, 17, 0.75);
+  cursor: pointer;
+}
+
+.photo img {
+  max-width: 100%;
+  max-height: 80vh;
+  border: 2px solid var(--teal);
+  background: var(--white);
+}
