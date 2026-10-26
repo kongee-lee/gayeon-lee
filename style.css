@@ -83,7 +83,7 @@ h1 {
 }
 
 /* 입력칸 */
-input {
+#item {
   min-width: 0;
   height: 48px;
   padding: 0 14px;
@@ -94,11 +94,11 @@ input {
   font: inherit;
 }
 
-input::placeholder {
+#item::placeholder {
   color: var(--gray);
 }
 
-input:focus {
+#item:focus {
   outline: 2px solid var(--teal);
   outline-offset: 2px;
 }
@@ -154,6 +154,37 @@ li::before {
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   font-size: 0.85rem;
   font-weight: 700;
+}
+
+/* 목록 줄의 체크박스 */
+li input[type="checkbox"] {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--teal-dark);
+  cursor: pointer;
+}
+
+/* 목록 줄의 삭제 버튼: 오른쪽 끝, 흰 바탕의 작은 버튼 */
+li button {
+  flex: none;
+  margin-left: auto;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--white);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+li button:hover {
+  background: var(--paper);
+}
+
+/* 체크한 줄: 가운데 줄을 긋고 흐리게 */
+li.done {
+  color: var(--gray);
+  text-decoration: line-through;
 }
 
 /* 남은 개수: 기계 화면처럼 고정폭 글자, 앞에 빨간 네모 */
